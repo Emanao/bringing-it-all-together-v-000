@@ -59,7 +59,9 @@ class Dog
      sql = <<-SQL
      SELECT * FROM dogs WHERE id = ?
      SQL
-     DB[:conn].execute( sql, id).map {|row| self.new_from_db(row)}.first
+     #DB[:conn].execute( sql, id).map {|row| self.new_from_db(row)}.first
+     row = DB[:conn].execute( sql, id).first
+     self.new_from_db(row)
    end
 
    def self.create (name:, breed:)
